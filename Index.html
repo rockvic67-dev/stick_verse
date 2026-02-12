@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>StickVerse | Indie Anime Streaming</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StickVerse</title>
+
 <style>
 * {
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family:'Segoe UI',sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+  background:linear-gradient(135deg,#0f0f1a,#1a1a2e);
   color:white;
   min-height:100vh;
 }
 
-/* NAVBAR */
 nav {
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:15px 40px;
-  background: rgba(20,20,40,0.8);
-  backdrop-filter: blur(10px);
+  background:rgba(20,20,40,0.8);
+  backdrop-filter:blur(10px);
   position:sticky;
   top:0;
-  z-index:1000;
 }
 
 nav h1 {
-  font-size:24px;
   color:#00f2ff;
-  letter-spacing:1px;
 }
 
 nav ul {
@@ -46,14 +43,13 @@ nav ul {
 nav ul li a {
   text-decoration:none;
   color:white;
-  transition:0.3s ease;
+  transition:0.3s;
 }
 
 nav ul li a:hover {
   color:#00f2ff;
 }
 
-/* HAMBURGER */
 .hamburger {
   display:none;
   flex-direction:column;
@@ -65,17 +61,17 @@ nav ul li a:hover {
   width:25px;
   height:3px;
   background:white;
-  transition:0.3s ease;
+  transition:0.3s;
 }
 
 .hamburger.open span:nth-child(1){
-  transform: rotate(45deg) translate(5px,5px);
+  transform:rotate(45deg) translate(5px,5px);
 }
 .hamburger.open span:nth-child(2){
   opacity:0;
 }
 .hamburger.open span:nth-child(3){
-  transform: rotate(-45deg) translate(5px,-5px);
+  transform:rotate(-45deg) translate(5px,-5px);
 }
 
 @media(max-width:768px){
@@ -99,7 +95,6 @@ nav ul li a:hover {
   }
 }
 
-/* HERO SECTION */
 .hero {
   text-align:center;
   padding:80px 20px;
@@ -107,7 +102,6 @@ nav ul li a:hover {
 
 .hero h2 {
   font-size:48px;
-  margin-bottom:20px;
   background:linear-gradient(to right,#00f2ff,#ff00c8);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -115,7 +109,7 @@ nav ul li a:hover {
 
 .hero p {
   opacity:0.7;
-  margin-bottom:30px;
+  margin:20px 0;
 }
 
 .hero button {
@@ -126,14 +120,13 @@ nav ul li a:hover {
   color:white;
   font-weight:bold;
   cursor:pointer;
-  transition:0.3s ease;
+  transition:0.3s;
 }
 
 .hero button:hover {
   transform:scale(1.05);
 }
 
-/* ANIME GRID */
 .grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -145,7 +138,7 @@ nav ul li a:hover {
   background:rgba(255,255,255,0.05);
   border-radius:15px;
   overflow:hidden;
-  transition:0.3s ease;
+  transition:0.3s;
   cursor:pointer;
 }
 
@@ -163,40 +156,9 @@ nav ul li a:hover {
   transform:translateY(-10px);
   box-shadow:0 10px 30px rgba(0,242,255,0.3);
 }
-
-/* FORMS */
-.form-container {
-  max-width:400px;
-  margin:50px auto;
-  background:rgba(255,255,255,0.05);
-  padding:30px;
-  border-radius:15px;
-  backdrop-filter:blur(10px);
-}
-
-.form-container input {
-  width:100%;
-  padding:10px;
-  margin-bottom:15px;
-  border:none;
-  border-radius:8px;
-}
-
-.form-container button {
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  background:linear-gradient(45deg,#00f2ff,#ff00c8);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-
 </style>
-
-
 </head>
+
 <body>
 
 <nav>
@@ -226,12 +188,10 @@ nav ul li a:hover {
     <img src="https://via.placeholder.com/300x400">
     <h3>Naruto</h3>
   </div>
-
   <div class="card">
     <img src="https://via.placeholder.com/300x400">
     <h3>Attack on Titan</h3>
   </div>
-
   <div class="card">
     <img src="https://via.placeholder.com/300x400">
     <h3>Demon Slayer</h3>
@@ -248,180 +208,5 @@ hamburger.onclick = () => {
 };
 </script>
 
-<script type="module">
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA23V1vAXR9GmPlSzpcoxNdIelA97okhtg",
-  authDomain: "stickverse-6998b.firebaseapp.com",
-  projectId: "stickverse-6998b",
-  storageBucket: "stickverse-6998b.appspot.com",
-  messagingSenderId: "592639288866",
-  appId: "1:592639288866:web:f3e5cbf0ac4a35bf72cc7b"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
-const auth = getAuth(app);
-onAuthStateChanged(auth, (user) => {
-  const uploadLink = document.querySelector("a[onclick*='creator']");
-  const navLinks = document.querySelector('.nav-links');
-
-  if (user) {
-    console.log("User logged in:", user.email);
-
-    if (uploadLink) uploadLink.style.display = "inline";
-
-    if (!document.getElementById("logoutBtn")) {
-      const logoutBtn = document.createElement("a");
-      logoutBtn.textContent = "Logout";
-      logoutBtn.id = "logoutBtn";
-      logoutBtn.style.cursor = "pointer";
-      logoutBtn.onclick = logout;
-      navLinks.appendChild(logoutBtn);
-    }
-
-  } else {
-    console.log("No user logged in");
-
-    if (uploadLink) uploadLink.style.display = "none";
-
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) logoutBtn.remove();
-  }
-});
-
-window.logout = async () => {
-  await signOut(auth);
-  alert("Logged out");
-  go('home');
-};
-
-
-/* NAVIGATION */
-window.go = (page, el=null) => {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const target = document.getElementById(page);
-  if(target) target.classList.add('active');
-
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  if(el) el.classList.add('active');
-
-  // close hamburger on mobile after click
-  const nav = document.getElementById('navLinks');
-  const ham = document.getElementById('hamburger');
-  nav.classList.remove('show');
-  ham.classList.remove('open');
-};
-
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.onclick = () => {
-  navLinks.classList.toggle('show');
-  hamburger.classList.toggle('open');
-};
-
-/* FIREBASE LOGIC */
-async function loadSeries() {
-  const row = document.getElementById('seriesRow');
-  const empty = document.getElementById('emptyNotice');
-  row.innerHTML='';
-
-  try {
-    const snap = await getDocs(collection(db,'series'));
-    if(snap.empty){ empty.style.display='block'; return; }
-    empty.style.display='none';
-
-    snap.forEach(d=>{
-      const s=d.data();
-      if(!s || !s.title || !Array.isArray(s.episodes)) return;
-      const card=document.createElement('div');
-      card.className='anime-card';
-      card.innerHTML=`<img src="${s.poster||'https://via.placeholder.com/400x600'}"><div class='info'><h3>${s.title}</h3></div>`;
-      card.onclick=()=>loadEpisodes(s);
-      row.appendChild(card);
-    });
-  } catch(error) {
-    console.error('Firestore error:', error);
-    empty.style.display='block';
-    empty.textContent = 'Error loading series. Check Firebase rules.';
-  }
-}
-
-window.loadEpisodes = series=>{
-  if(!series || !Array.isArray(series.episodes)) return;
-  const list=document.getElementById('episodeList');
-  list.innerHTML='';
-  document.getElementById('watchTitle').textContent=`Watching: ${series.title}`;
-  series.episodes.forEach((ep,i)=>{
-    if(!ep || !ep.src) return;
-    const e=document.createElement('div');
-    e.className='episode';
-    e.textContent=ep.title||`Episode ${i+1}`;
-    e.onclick=()=>playEpisode(ep.src,i);
-    list.appendChild(e);
-  });
-  if(series.episodes.length && series.episodes[0].src) { playEpisode(series.episodes[0].src,0); }
-  go('watch');
-};
-
-function playEpisode(src,idx){
-  const v=document.getElementById('video');
-  if(!v) return;
-  v.src=src;
-  v.play().catch(()=>{});
-  document.querySelectorAll('.episode').forEach(e=>e.classList.remove('active'));
-  const active = document.querySelectorAll('.episode')[idx];
-  if(active) active.classList.add('active');
-}
-
-window.submitAnime=async()=>{
-  if (!auth.currentUser) {
-  alert("You must be logged in to upload.");
-  return;
-  }
-  const title=document.getElementById('creatorTitle').value.trim();
-  const poster=document.getElementById('creatorPoster').value.trim();
-  const file=document.getElementById('creatorVideoFile').files[0];
-  if(!title||!file) { alert('Title and video required'); return; }
-  try {
-    const fileRef=ref(storage,`videos/${Date.now()}_${file.name}`);
-    await uploadBytes(fileRef,file);
-    const url=await getDownloadURL(fileRef);
-    await addDoc(collection(db,'series'),{ title, poster, episodes:[{title:'Episode 1',src:url}], createdAt:Date.now() });
-    alert('Upload complete');
-    go('series');
-    loadSeries();
-  } catch(error) { console.error('Upload error:', error); alert('Upload failed. Check Firebase Storage & Firestore rules.'); }
-};
-
-// Firebase Auth: Sign Up & Login
-window.signup = async()=>{
-  const email=document.getElementById('signupEmail').value;
-  const password=document.getElementById('signupPassword').value;
-  try {
-    await createUserWithEmailAndPassword(auth,email,password);
-    alert('Sign up successful');
-    go('home');
-  } catch(e){ alert('Sign up failed: '+e.message); }
-};
-
-window.login = async()=>{
-  const email=document.getElementById('loginEmail').value;
-  const password=document.getElementById('loginPassword').value;
-  try {
-    await signInWithEmailAndPassword(auth,email,password);
-    alert('Login successful');
-    go('home');
-  } catch(e){ alert('Login failed: '+e.message); }
-};
-
-loadSeries();
-</script>
 </body>
 </html>
