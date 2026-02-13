@@ -6,410 +6,150 @@
 <title>StickVerse | Indie Anime Streaming</title>
 
 <style>
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-  background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
-  color:white;
-  min-height:100vh;
-}
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+body { background:#0f0f1a; color:white; min-height:100vh; overflow-x:hidden; }
 
 /* NAVBAR */
 nav {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 40px;
-  background: rgba(20,20,40,0.8);
-  backdrop-filter: blur(10px);
-  position:sticky;
-  top:0;
-  z-index:1000;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:15px 40px; background: rgba(20,20,40,0.8); backdrop-filter: blur(10px);
+  position:sticky; top:0; z-index:1000; box-shadow:0 4px 15px rgba(0,0,0,0.5);
+  transition: background 0.3s ease;
 }
-
-nav h1 {
-  font-size:24px;
-  color:#00f2ff;
-  letter-spacing:1px;
-}
-
-nav ul {
-  display:flex;
-  list-style:none;
-  gap:25px;
-}
-
-nav ul li a {
-  text-decoration:none;
-  color:white;
-  transition:0.3s ease;
-}
-
-nav ul li a:hover {
-  color:#00f2ff;
-}
+nav:hover { background: rgba(20,20,40,1); }
+nav h1 { font-size:28px; color:#00f2ff; letter-spacing:1px; cursor:pointer; }
+nav ul { display:flex; list-style:none; gap:25px; }
+nav ul li a { text-decoration:none; color:white; font-weight:bold; transition:0.3s ease; }
+nav ul li a:hover, nav ul li a.active { color:#00f2ff; }
 
 /* HAMBURGER */
-.hamburger {
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  cursor:pointer;
-}
-
-.hamburger span {
-  width:25px;
-  height:3px;
-  background:white;
-  transition:0.3s ease;
-}
-
-.hamburger.open span:nth-child(1){
-  transform: rotate(45deg) translate(5px,5px);
-}
-.hamburger.open span:nth-child(2){
-  opacity:0;
-}
-.hamburger.open span:nth-child(3){
-  transform: rotate(-45deg) translate(5px,-5px);
-}
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+.hamburger span { width:25px; height:3px; background:white; transition:0.3s ease; }
+.hamburger.open span:nth-child(1){ transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform: rotate(-45deg) translate(5px,-5px); }
 
 @media(max-width:768px){
-  nav ul{
-    position:absolute;
-    top:70px;
-    right:0;
-    background:#1a1a2e;
-    flex-direction:column;
-    width:200px;
-    padding:20px;
-    display:none;
-  }
-
-  nav ul.show{
-    display:flex;
-  }
-
-  .hamburger{
-    display:flex;
-  }
+  nav ul{ position:absolute; top:70px; right:0; background:#1a1a2e; flex-direction:column; width:200px; padding:20px; display:none; }
+  nav ul.show{ display:flex; animation:fadeIn 0.3s ease forwards; }
+  .hamburger{ display:flex; }
 }
+@keyframes fadeIn { from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
 
 /* HERO SECTION */
-.hero {
-  text-align:center;
-  padding:80px 20px;
-}
+.hero { position:relative; text-align:center; padding:100px 20px; overflow:hidden; }
+.hero::after { content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6)); z-index:0; }
+.hero h2 { font-size:56px; margin-bottom:20px; background:linear-gradient(to right,#00f2ff,#ff00c8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; position:relative; z-index:1; animation:slideIn 1s ease forwards; }
+.hero p { opacity:0.8; margin-bottom:30px; font-size:18px; position:relative; z-index:1; }
+.hero button { padding:15px 40px; border:none; border-radius:30px; background:linear-gradient(45deg,#00f2ff,#ff00c8); color:white; font-weight:bold; cursor:pointer; transition:0.3s ease; position:relative; z-index:1; }
+.hero button:hover { transform:scale(1.1) rotate(-1deg); box-shadow:0 10px 30px rgba(0,242,255,0.5); }
 
-.hero h2 {
-  font-size:48px;
-  margin-bottom:20px;
-  background:linear-gradient(to right,#00f2ff,#ff00c8);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
+@keyframes slideIn { from {opacity:0; transform:translateY(-50px);} to {opacity:1; transform:translateY(0);} }
 
-.hero p {
-  opacity:0.7;
-  margin-bottom:30px;
-}
-
-.hero button {
-  padding:12px 30px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#00f2ff,#ff00c8);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s ease;
-}
-
-.hero button:hover {
-  transform:scale(1.05);
-}
+/* PARTICLES */
+#particles { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
 
 /* ANIME GRID */
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:30px;
-  padding:40px;
-}
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; padding:60px 40px; position:relative; z-index:1; }
+.card { background:rgba(255,255,255,0.05); border-radius:15px; overflow:hidden; transition:0.5s ease; cursor:pointer; position:relative; }
+.card img { width:100%; height:300px; object-fit:cover; transition:transform 0.5s ease; }
+.card h3 { padding:15px; text-align:center; font-size:20px; }
+.card:hover { transform:translateY(-10px); box-shadow:0 15px 40px rgba(0,242,255,0.3); }
+.card:hover img { transform: scale(1.05) rotate(-1deg); }
 
-.card {
-  background:rgba(255,255,255,0.05);
-  border-radius:15px;
-  overflow:hidden;
-  transition:0.3s ease;
-  cursor:pointer;
-}
-
-.card img {
-  width:100%;
-  height:300px;
-  object-fit:cover;
-}
-
-.card h3 {
-  padding:15px;
-}
-
-.card:hover {
-  transform:translateY(-10px);
-  box-shadow:0 10px 30px rgba(0,242,255,0.3);
-}
-
-/* FORMS */
-.form-container {
-  max-width:400px;
-  margin:50px auto;
-  background:rgba(255,255,255,0.05);
-  padding:30px;
-  border-radius:15px;
-  backdrop-filter:blur(10px);
-}
-
-.form-container input {
-  width:100%;
-  padding:10px;
-  margin-bottom:15px;
-  border:none;
-  border-radius:8px;
-}
-
-.form-container button {
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  background:linear-gradient(45deg,#00f2ff,#ff00c8);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-
+/* FOOTER */
+footer { text-align:center; padding:30px 20px; background:#111118; color:#aaa; font-size:14px; }
 </style>
-
-
 </head>
 <body>
 
-<header>
-  <div class="nav-container">
-    <div class="logo" onclick="go('home')">StickVerse</div>
-    <div class="nav-links" id="navLinks">
-      <a onclick="go('home', this)" class="active">Home</a>
-      <a onclick="go('series', this)">Series</a>
-      <a onclick="go('watch', this)">Watch</a>
-      <a onclick="go('creator', this)">Upload</a>
-      <a onclick="go('signup', this)">Sign Up</a>
-      <a onclick="go('login', this)">Login</a>
-    </div>
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+<nav>
+  <h1>StickVerse</h1>
+  <ul id="navLinks">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Browse</a></li>
+    <li><a href="login.html">Login</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
   </div>
-</header>
+</nav>
 
-<div id="home" class="page active">
-  <section class="hero">
-    <div>
-      <h2>StickVerse Originals</h2>
-      <p>Indie anime. Creator-owned.</p>
-      <button onclick="go('series')">Browse Series</button>
-    </div>
-  </section>
-</div>
+<section class="hero">
+  <canvas id="particles"></canvas>
+  <h2>Stream Your Favorite Anime</h2>
+  <p>Unlimited episodes. Zero boredom.</p>
+  <button>Start Watching</button>
+</section>
 
-<div id="series" class="page">
-  <section class="section">
-    <h2>Series</h2>
-    <div class="row" id="seriesRow"></div>
-    <p id="emptyNotice" style="color:#aaa; display:none">No series uploaded yet.</p>
-  </section>
-</div>
-
-<div id="watch" class="page">
-  <section class="section">
-    <h2 id="watchTitle">Select a series</h2>
-    <div class="player"><video id="video" controls></video></div>
-    <div class="episode-list" id="episodeList"></div>
-  </section>
-</div>
-
-<div id="creator" class="page">
-  <div class="creator-box">
-    <h2>Upload Anime</h2>
-    <input id="creatorTitle" placeholder="Series Title" />
-    <input id="creatorPoster" placeholder="Poster Image URL (optional)" />
-    <input id="creatorVideoFile" type="file" accept="video/*" />
-    <button onclick="submitAnime()">Upload Episode 1</button>
-  </div>
-</div>
-
-<div id="signup" class="page">
-  <div class="creator-box">
-    <h2>Sign Up</h2>
-    <input id="signupEmail" type="email" placeholder="Email" />
-    <input id="signupPassword" type="password" placeholder="Password" />
-    <button onclick="signup()">Sign Up</button>
-  </div>
-</div>
-
-<div id="login" class="page">
-  <div class="creator-box">
-    <h2>Login</h2>
-    <input id="loginEmail" type="email" placeholder="Email" />
-    <input id="loginPassword" type="password" placeholder="Password" />
-    <button onclick="login()">Login</button>
-  </div>
-</div>
+<section class="grid" id="seriesGrid">
+  <!-- Firebase-loaded series will go here -->
+</section>
 
 <footer>© 2026 StickVerse</footer>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+// Hamburger toggle
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+hamburger.onclick = () => { navLinks.classList.toggle("show"); hamburger.classList.toggle("open"); };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA23V1vAXR9GmPlSzpcoxNdIelA97okhtg",
-  authDomain: "stickverse-6998b.firebaseapp.com",
-  projectId: "stickverse-6998b",
-  storageBucket: "stickverse-6998b.appspot.com",
-  messagingSenderId: "592639288866",
-  appId: "1:592639288866:web:f3e5cbf0ac4a35bf72cc7b"
-};
+// Particle background
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particlesArray;
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const storage = getStorage(app);
-const auth = getAuth(app);
-
-/* NAVIGATION */
-window.go = (page, el=null) => {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const target = document.getElementById(page);
-  if(target) target.classList.add('active');
-
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  if(el) el.classList.add('active');
-
-  // close hamburger on mobile after click
-  const nav = document.getElementById('navLinks');
-  const ham = document.getElementById('hamburger');
-  nav.classList.remove('show');
-  ham.classList.remove('open');
-};
-
-const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
-hamburger.onclick = () => {
-  navLinks.classList.toggle('show');
-  hamburger.classList.toggle('open');
-};
-
-/* FIREBASE LOGIC */
-async function loadSeries() {
-  const row = document.getElementById('seriesRow');
-  const empty = document.getElementById('emptyNotice');
-  row.innerHTML='';
-
-  try {
-    const snap = await getDocs(collection(db,'series'));
-    if(snap.empty){ empty.style.display='block'; return; }
-    empty.style.display='none';
-
-    snap.forEach(d=>{
-      const s=d.data();
-      if(!s || !s.title || !Array.isArray(s.episodes)) return;
-      const card=document.createElement('div');
-      card.className='anime-card';
-      card.innerHTML=`<img src="${s.poster||'https://via.placeholder.com/400x600'}"><div class='info'><h3>${s.title}</h3></div>`;
-      card.onclick=()=>loadEpisodes(s);
-      row.appendChild(card);
+function initParticles() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  particlesArray = [];
+  for(let i=0;i<100;i++){
+    particlesArray.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      size: Math.random()*2+1,
+      speedX: (Math.random()-0.5)*0.5,
+      speedY: (Math.random()-0.5)*0.5
     });
-  } catch(error) {
-    console.error('Firestore error:', error);
-    empty.style.display='block';
-    empty.textContent = 'Error loading series. Check Firebase rules.';
   }
 }
-
-window.loadEpisodes = series=>{
-  if(!series || !Array.isArray(series.episodes)) return;
-  const list=document.getElementById('episodeList');
-  list.innerHTML='';
-  document.getElementById('watchTitle').textContent=`Watching: ${series.title}`;
-  series.episodes.forEach((ep,i)=>{
-    if(!ep || !ep.src) return;
-    const e=document.createElement('div');
-    e.className='episode';
-    e.textContent=ep.title||`Episode ${i+1}`;
-    e.onclick=()=>playEpisode(ep.src,i);
-    list.appendChild(e);
+function animateParticles() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particlesArray.forEach(p=>{
+    ctx.fillStyle = 'rgba(0,242,255,0.7)';
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+    p.x += p.speedX; p.y += p.speedY;
+    if(p.x<0) p.x=canvas.width;
+    if(p.x>canvas.width) p.x=0;
+    if(p.y<0) p.y=canvas.height;
+    if(p.y>canvas.height) p.y=0;
   });
-  if(series.episodes.length && series.episodes[0].src) { playEpisode(series.episodes[0].src,0); }
-  go('watch');
-};
-
-function playEpisode(src,idx){
-  const v=document.getElementById('video');
-  if(!v) return;
-  v.src=src;
-  v.play().catch(()=>{});
-  document.querySelectorAll('.episode').forEach(e=>e.classList.remove('active'));
-  const active = document.querySelectorAll('.episode')[idx];
-  if(active) active.classList.add('active');
+  requestAnimationFrame(animateParticles);
 }
+initParticles();
+animateParticles();
+window.addEventListener('resize', initParticles);
 
-window.submitAnime=async()=>{
-  const title=document.getElementById('creatorTitle').value.trim();
-  const poster=document.getElementById('creatorPoster').value.trim();
-  const file=document.getElementById('creatorVideoFile').files[0];
-  if(!title||!file) { alert('Title and video required'); return; }
-  try {
-    const fileRef=ref(storage,`videos/${Date.now()}_${file.name}`);
-    await uploadBytes(fileRef,file);
-    const url=await getDownloadURL(fileRef);
-    await addDoc(collection(db,'series'),{ title, poster, episodes:[{title:'Episode 1',src:url}], createdAt:Date.now() });
-    alert('Upload complete');
-    go('series');
-    loadSeries();
-  } catch(error) { console.error('Upload error:', error); alert('Upload failed. Check Firebase Storage & Firestore rules.'); }
-};
-
-// Firebase Auth: Sign Up & Login
-window.signup = async()=>{
-  const email=document.getElementById('signupEmail').value;
-  const password=document.getElementById('signupPassword').value;
-  try {
-    await createUserWithEmailAndPassword(auth,email,password);
-    alert('Sign up successful');
-    go('home');
-  } catch(e){ alert('Sign up failed: '+e.message); }
-};
-
-window.login = async()=>{
-  const email=document.getElementById('loginEmail').value;
-  const password=document.getElementById('loginPassword').value;
-  try {
-    await signInWithEmailAndPassword(auth,email,password);
-    alert('Login successful');
-    go('home');
-  } catch(e){ alert('Login failed: '+e.message); }
-};
-
-loadSeries();
+// Firebase placeholder: Load series dynamically
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+// import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+// const firebaseConfig = { /* your config */ };
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
+// async function loadSeries() {
+//   const grid = document.getElementById('seriesGrid');
+//   const snap = await getDocs(collection(db,'series'));
+//   snap.forEach(doc => {
+//     const data = doc.data();
+//     const card = document.createElement('div');
+//     card.className='card';
+//     card.innerHTML = `<img src="${data.poster || 'https://via.placeholder.com/300x400'}"><h3>${data.title}</h3>`;
+//     grid.appendChild(card);
+//   });
+// }
+// loadSeries();
 </script>
 </body>
 </html>
