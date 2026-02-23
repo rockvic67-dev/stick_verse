@@ -283,10 +283,33 @@ button:hover {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { 
+  getAuth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  onAuthStateChanged, 
+  signOut 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
+import { 
+  getFirestore, 
+  doc, 
+  setDoc, 
+  getDoc, 
+  updateDoc, 
+  arrayUnion 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+import { 
+  getStorage, 
+  ref, 
+  uploadBytes, 
+  getDownloadURL 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "YOUR_REAL_API_KEY",
   authDomain: "stickverse-6998b.firebaseapp.com",
   projectId: "stickverse-6998b",
   storageBucket: "stickverse-6998b.appspot.com",
@@ -296,54 +319,97 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
 
 window.showSection = function(id) {
   document.querySelectorAll('section').forEach(sec => sec.classList.remove('active-section'));
   document.getElementById(id).classList.add('active-section');
-}
+};
+
 
 window.login = function() {
   const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
+
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => showSection('profile'))
+    .then(() => showSection('dashboard'))
     .catch(err => alert(err.message));
-}
+};
+
 
 window.signup = function() {
   const email = document.getElementById('signupEmail').value;
   const password = document.getElementById('signupPassword').value;
+
   createUserWithEmailAndPassword(auth, email, password)
-    .then(() => showSection('profile'))
+    .then(async (cred) => {
+      await setDoc(doc(db, "users", cred.user.uid), {
+        email: email,
+        watchHistory: []
+      });
+      showSection('dashboard');
+    })
     .catch(err => alert(err.message));
-}
+};
+
 
 window.logout = function() {
   signOut(auth).then(() => showSection('home'));
-}
+};
 
-onAuthStateChanged(auth, user => {
+
+onAuthStateChanged(auth, async (user) => {
   if(user) {
     document.getElementById('userEmail').textContent = `Logged in as: ${user.email}`;
+    loadDashboard(user);
   }
 });
 
-const searchInput = document.getElementById("searchInput");
 
-searchInput.addEventListener("input", () => {
-  const value = searchInput.value.toLowerCase();
-  const cards = document.querySelectorAll(".card");
+async function loadDashboard(user) {
+  showSection("dashboard");
 
-  cards.forEach(card => {
-    const title = card.querySelector("h3").textContent.toLowerCase();
-    card.style.display = title.includes(value) ? "block" : "none";
+  const docRef = doc(db, "users", user.uid);
+  const snap = await getDoc(docRef);
+
+  if(snap.exists()) {
+    const data = snap.data();
+
+    const historyDiv = document.getElementById("historyList");
+    historyDiv.innerHTML = "";
+
+    if(data.watchHistory && data.watchHistory.length > 0) {
+      data.watchHistory.forEach(title => {
+        const p = document.createElement("p");
+        p.textContent = title;
+        historyDiv.appendChild(p);
+      });
+    }
+
+    if(data.photoURL) {
+      document.getElementById("profilePreview").src = data.photoURL;
+    }
+  }
+}
+
+
+document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if(!user) return alert("Login first");
+
+    const title = card.querySelector("h3").textContent;
+
+    await updateDoc(doc(db, "users", user.uid), {
+      watchHistory: arrayUnion(title)
+    });
+
+    loadDashboard(user);
   });
 });
 
-import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-const auth = getAuth(app);
 
 document.getElementById("profilePicUpload")?.addEventListener("change", async (e) => {
   const file = e.target.files[0];
@@ -356,13 +422,25 @@ document.getElementById("profilePicUpload")?.addEventListener("change", async (e
   await uploadBytes(picRef, file);
   const url = await getDownloadURL(picRef);
 
-  await setDoc(doc(db, "users", user.uid), {
+  await updateDoc(doc(db, "users", user.uid), {
     photoURL: url
-  }, { merge: true });
+  });
 
   document.getElementById("profilePreview").src = url;
 });
-  
+
+
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const title = card.querySelector("h3").textContent.toLowerCase();
+    card.style.display = title.includes(value) ? "block" : "none";
+  });
+});
 </script>
 
 </body>
