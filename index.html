@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StickVerse</title>
 <style>
 body { 
@@ -14,13 +14,11 @@ body {
   color:white; 
   overflow-x:hidden;
 }
-
 @keyframes gradientBG {
   0% { background-position:0% 50%; }
   50% { background-position:100% 50%; }
   100% { background-position:0% 50%; }
 }
-
 header { 
   display:flex; 
   justify-content:space-between; 
@@ -29,17 +27,12 @@ header {
   background:rgba(20,20,40,0.9); 
   backdrop-filter:blur(10px);
 }
-
 header h1 { 
   color:#00f2ff; 
   cursor:pointer; 
   transition:0.3s;
 }
-
-header h1:hover {
-  text-shadow:0 0 15px #00f2ff;
-}
-
+header h1:hover { text-shadow:0 0 15px #00f2ff; }
 nav a { 
   color:white; 
   margin-left:20px; 
@@ -47,177 +40,33 @@ nav a {
   cursor:pointer;
   transition:0.3s;
 }
-
-nav a:hover {
-  color:#ff00c8;
-}
-
-section { 
-  display:none; 
-  padding:60px 20px; 
-  text-align:center; 
-  animation:fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
-}
-
+nav a:hover { color:#ff00c8; }
+section { display:none; padding:60px 20px; text-align:center; animation:fadeIn 0.6s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 .active-section { display:block; }
-
-input { 
-  display:block; 
-  margin:15px auto; 
-  padding:12px; 
-  width:250px; 
-  border-radius:6px; 
-  border:none;
-  outline:none;
-  transition:0.3s;
-}
-
-input:focus {
-  box-shadow:0 0 10px #00f2ff;
-}
-
-button { 
-  padding:12px 30px; 
-  border:none; 
-  border-radius:8px; 
-  background:linear-gradient(45deg,#00f2ff,#ff00c8); 
-  color:white; 
-  cursor:pointer; 
-  margin-top:10px;
-  transition:0.3s;
-}
-
-button:hover {
-  transform:scale(1.05);
-  box-shadow:0 0 15px #ff00c8;
-}
-
-.hero {
-  position:relative;
-  padding-top:80px;
-}
-
-.hero::before {
-  content:"";
-  position:absolute;
-  top:-100px;
-  left:50%;
-  transform:translateX(-50%);
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle, rgba(0,242,255,0.25) 0%, rgba(255,0,200,0.15) 40%, transparent 70%);
-  animation:pulseLight 4s ease-in-out infinite;
-  z-index:0;
-}
-
-@keyframes pulseLight {
-  0% { transform:translateX(-50%) scale(1); opacity:0.7; }
-  50% { transform:translateX(-50%) scale(1.2); opacity:1; }
-  100% { transform:translateX(-50%) scale(1); opacity:0.7; }
-}
-
-.hero h2 {
-  font-size:2.5rem;
-  position:relative;
-  z-index:1;
-  animation:floatText 3s ease-in-out infinite;
-  text-shadow:
-    0 0 10px #00f2ff,
-    0 0 20px #00f2ff,
-    0 0 40px #ff00c8,
-    0 0 80px rgba(255,0,200,0.6);
-}
-
-@keyframes floatText {
-  0% { transform:translateY(0px); }
-  50% { transform:translateY(-10px); }
-  100% { transform:translateY(0px); }
-}
-
-.grid { 
-  display:flex; 
-  justify-content:center; 
-  gap:20px; 
-  flex-wrap:wrap; 
-  margin-top:40px; 
-}
-
-.card { 
-  background:#1c1c2e; 
-  padding:15px; 
-  border-radius:10px; 
-  width:200px;
-  transition:0.3s;
-  opacity:0;
-  transform:translateY(40px);
-  animation:cardReveal 0.8s ease forwards;
-}
-
+input { display:block; margin:15px auto; padding:12px; width:250px; border-radius:6px; border:none; outline:none; transition:0.3s; }
+input:focus { box-shadow:0 0 10px #00f2ff; }
+button { padding:12px 30px; border:none; border-radius:8px; background:linear-gradient(45deg,#00f2ff,#ff00c8); color:white; cursor:pointer; margin-top:10px; transition:0.3s; }
+button:hover { transform:scale(1.05); box-shadow:0 0 15px #ff00c8; }
+.hero { position:relative; padding-top:80px; }
+.hero::before { content:""; position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:600px; height:600px; background:radial-gradient(circle, rgba(0,242,255,0.25) 0%, rgba(255,0,200,0.15) 40%, transparent 70%); animation:pulseLight 4s ease-in-out infinite; z-index:0; }
+@keyframes pulseLight { 0% { transform:translateX(-50%) scale(1); opacity:0.7; } 50% { transform:translateX(-50%) scale(1.2); opacity:1; } 100% { transform:translateX(-50%) scale(1); opacity:0.7; } }
+.hero h2 { font-size:2.5rem; position:relative; z-index:1; animation:floatText 3s ease-in-out infinite; text-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff, 0 0 40px #ff00c8, 0 0 80px rgba(255,0,200,0.6); }
+@keyframes floatText { 0% { transform:translateY(0px); } 50% { transform:translateY(-10px); } 100% { transform:translateY(0px); } }
+.grid { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:40px; }
+.card { background:#1c1c2e; padding:15px; border-radius:10px; width:200px; transition:0.3s; opacity:0; transform:translateY(40px); animation:cardReveal 0.8s ease forwards; position:relative; overflow:hidden; transform-style:preserve-3d; }
 .card:nth-child(1) { animation-delay:0.2s; }
 .card:nth-child(2) { animation-delay:0.4s; }
 .card:nth-child(3) { animation-delay:0.6s; }
-
-@keyframes cardReveal {
-  to {
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* Next Level Card Effects */
-.card {
-  position:relative;
-  overflow:hidden;
-  transform-style:preserve-3d;
-}
-
-.card::before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition:0.6s;
-}
-
-.card:hover::before {
-  left:100%;
-}
-
-.card:hover {
-  transform:translateY(-15px) scale(1.07) rotateX(6deg) rotateY(-6deg);
-  box-shadow:0 25px 50px rgba(0,0,0,0.6), 0 0 20px rgba(0,242,255,0.5);
-}
-
-.card img {
-  transition:0.5s;
-}
-
-.card:hover img {
-  transform:scale(1.08);
-}
-}
-
-.card:hover {
-  transform:translateY(-10px) scale(1.05);
-  box-shadow:0 15px 30px rgba(0,0,0,0.5);
-}
-
-.card img { 
-  width:100%; 
-  border-radius:8px; 
-}
+@keyframes cardReveal { to { opacity:1; transform:translateY(0); } }
+.card::before { content:""; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent); transition:0.6s; }
+.card:hover::before { left:100%; }
+.card:hover { transform:translateY(-15px) scale(1.07) rotateX(6deg) rotateY(-6deg); box-shadow:0 25px 50px rgba(0,0,0,0.6), 0 0 20px rgba(0,242,255,0.5); }
+.card img { transition:0.5s; width:100%; border-radius:8px; }
+.card:hover img { transform:scale(1.08); }
 </style>
 </head>
 <body>
-
 <header>
   <h1 onclick="showSection('home')">StickVerse</h1>
   <nav>
@@ -233,14 +82,9 @@ button:hover {
   <h2>Stream Your Favorite Anime</h2>
   <p>Unlimited episodes. Zero boredom.</p>
   <div style="text-align:center; margin:40px;">
-  <input 
-    type="text" 
-    id="searchInput" 
-    placeholder="Search anime..." 
-    style="padding:12px 20px; width:300px; border-radius:30px; border:none; outline:none;"
-  >
+    <input type="text" id="searchInput" placeholder="Search anime..." style="padding:12px 20px; width:300px; border-radius:30px; border:none; outline:none;">
   </div>
-  <div class="grid">
+  <div class="grid" id="animeGrid">
     <div class="card"><img src="https://via.placeholder.com/200x250"><h3>Naruto</h3></div>
     <div class="card"><img src="https://via.placeholder.com/200x250"><h3>Attack on Titan</h3></div>
     <div class="card"><img src="https://via.placeholder.com/200x250"><h3>Demon Slayer</h3></div>
@@ -267,46 +111,16 @@ button:hover {
 <section id="profile">
   <h2>Your Profile</h2>
   <p id="userEmail"></p>
-  <button onclick="logout()">Logout</button>
-</section>
-
-<section id="dashboard" style="display:none; padding:40px;">
-  <h2>Your Dashboard</h2>
-  <div id="profileBox"></div>
-  <h3>Watch History</h3>
-  <div id="historyList"></div>
-
+  <img id="profilePreview" width="120" style="border-radius:50%; margin-top:20px; display:none;">
   <input type="file" id="profilePicUpload" accept="image/*">
-  <img id="profilePreview" width="120" style="border-radius:50%; margin-top:20px;">
-  
+  <button onclick="logout()">Logout</button>
 </section>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { 
-  getAuth, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  onAuthStateChanged, 
-  signOut 
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-
-import { 
-  getFirestore, 
-  doc, 
-  setDoc, 
-  getDoc, 
-  updateDoc, 
-  arrayUnion 
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-import { 
-  getStorage, 
-  ref, 
-  uploadBytes, 
-  getDownloadURL 
-} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
-
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, arrayUnion, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA23V1vAXR9GmPlSzpcoxNdIelA97okhtg",
@@ -322,126 +136,100 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-
 window.showSection = function(id) {
   document.querySelectorAll('section').forEach(sec => sec.classList.remove('active-section'));
   document.getElementById(id).classList.add('active-section');
-};
-
+}
 
 window.login = function() {
   const email = document.getElementById('loginEmail').value;
   const password = document.getElementById('loginPassword').value;
-
   signInWithEmailAndPassword(auth, email, password)
-    .then(() => showSection('dashboard'))
+    .then(userCredential => {
+      showSection('profile');
+      initProfile(userCredential.user);
+    })
     .catch(err => alert(err.message));
-};
-
+}
 
 window.signup = function() {
   const email = document.getElementById('signupEmail').value;
   const password = document.getElementById('signupPassword').value;
-
   createUserWithEmailAndPassword(auth, email, password)
-    .then(async (cred) => {
-      await setDoc(doc(db, "users", cred.user.uid), {
-        email: email,
-        watchHistory: []
-      });
-      showSection('dashboard');
+    .then(userCredential => {
+      showSection('profile');
+      initProfile(userCredential.user);
     })
     .catch(err => alert(err.message));
-};
-
+}
 
 window.logout = function() {
   signOut(auth).then(() => showSection('home'));
-};
-
-
-onAuthStateChanged(auth, async (user) => {
-  if(user) {
-    document.getElementById('userEmail').textContent = `Logged in as: ${user.email}`;
-    loadDashboard(user);
-  }
-});
-
-
-async function loadDashboard(user) {
-  showSection("dashboard");
-
-  const docRef = doc(db, "users", user.uid);
-  const snap = await getDoc(docRef);
-
-  if(snap.exists()) {
-    const data = snap.data();
-
-    const historyDiv = document.getElementById("historyList");
-    historyDiv.innerHTML = "";
-
-    if(data.watchHistory && data.watchHistory.length > 0) {
-      data.watchHistory.forEach(title => {
-        const p = document.createElement("p");
-        p.textContent = title;
-        historyDiv.appendChild(p);
-      });
-    }
-
-    if(data.photoURL) {
-      document.getElementById("profilePreview").src = data.photoURL;
-    }
-  }
 }
 
-
-document.querySelectorAll(".card").forEach(card => {
-  card.addEventListener("click", async () => {
-    const user = auth.currentUser;
-    if(!user) return alert("Login first");
-
-    const title = card.querySelector("h3").textContent;
-
-    await updateDoc(doc(db, "users", user.uid), {
-      watchHistory: arrayUnion(title)
-    });
-
-    loadDashboard(user);
-  });
+onAuthStateChanged(auth, user => {
+  if(user) {
+    showSection('profile');
+    initProfile(user);
+  }
 });
 
+function initProfile(user) {
+  document.getElementById('userEmail').textContent = `Logged in as: ${user.email}`;
+  getDoc(doc(db,'users',user.uid)).then(docSnap=>{
+    if(docSnap.exists() && docSnap.data().photoURL){
+      const img = document.getElementById('profilePreview');
+      img.src = docSnap.data().photoURL;
+      img.style.display = 'block';
+    }
+  });
+}
 
-document.getElementById("profilePicUpload")?.addEventListener("change", async (e) => {
+// Profile picture upload
+document.getElementById("profilePicUpload").addEventListener("change", async (e)=>{
   const file = e.target.files[0];
-  if (!file) return;
-
+  if(!file) return;
   const user = auth.currentUser;
-  if (!user) return alert("Login required");
-
+  if(!user) return alert("Login required");
   const picRef = ref(storage, `profilePics/${user.uid}`);
   await uploadBytes(picRef, file);
   const url = await getDownloadURL(picRef);
-
-  await updateDoc(doc(db, "users", user.uid), {
-    photoURL: url
-  });
-
-  document.getElementById("profilePreview").src = url;
+  await setDoc(doc(db,'users',user.uid), { photoURL:url }, { merge:true });
+  const img = document.getElementById('profilePreview');
+  img.src = url;
+  img.style.display='block';
 });
 
+// Search filter
+window.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("searchInput");
 
-const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase();
+    const cards = document.querySelectorAll(".grid .card");
 
-searchInput.addEventListener("input", () => {
-  const value = searchInput.value.toLowerCase();
-  const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+      const titleElem = card.querySelector("h3");
+      const title = titleElem.textContent.toLowerCase();
 
-  cards.forEach(card => {
-    const title = card.querySelector("h3").textContent.toLowerCase();
-    card.style.display = title.includes(value) ? "block" : "none";
+      if(title.includes(value)) {
+        card.style.display = "block";
+
+        // Highlight matching part
+        if(value) {
+          const regex = new RegExp(`(${value})`, "gi");
+          titleElem.innerHTML = titleElem.textContent.replace(regex, "<span style='background:#ff00c8; color:white;'>$1</span>");
+        } else {
+          // Reset highlight if search is cleared
+          titleElem.innerHTML = titleElem.textContent;
+        }
+
+      } else {
+        card.style.display = "none";
+      }
+    });
   });
 });
 </script>
-
 </body>
 </html>
