@@ -232,6 +232,14 @@ button:hover {
 <section id="home" class="active-section hero">
   <h2>Stream Your Favorite Anime</h2>
   <p>Unlimited episodes. Zero boredom.</p>
+  <div style="text-align:center; margin:40px;">
+  <input 
+    type="text" 
+    id="searchInput" 
+    placeholder="Search anime..." 
+    style="padding:12px 20px; width:300px; border-radius:30px; border:none; outline:none;"
+  >
+  </div>
   <div class="grid">
     <div class="card"><img src="https://via.placeholder.com/200x250"><h3>Naruto</h3></div>
     <div class="card"><img src="https://via.placeholder.com/200x250"><h3>Attack on Titan</h3></div>
@@ -260,6 +268,17 @@ button:hover {
   <h2>Your Profile</h2>
   <p id="userEmail"></p>
   <button onclick="logout()">Logout</button>
+</section>
+
+<section id="dashboard" style="display:none; padding:40px;">
+  <h2>Your Dashboard</h2>
+  <div id="profileBox"></div>
+  <h3>Watch History</h3>
+  <div id="historyList"></div>
+
+  <input type="file" id="profilePicUpload" accept="image/*">
+  <img id="profilePreview" width="120" style="border-radius:50%; margin-top:20px;">
+  
 </section>
 
 <script type="module">
@@ -308,6 +327,42 @@ onAuthStateChanged(auth, user => {
     document.getElementById('userEmail').textContent = `Logged in as: ${user.email}`;
   }
 });
+
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const title = card.querySelector("h3").textContent.toLowerCase();
+    card.style.display = title.includes(value) ? "block" : "none";
+  });
+});
+
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+const auth = getAuth(app);
+
+document.getElementById("profilePicUpload")?.addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const user = auth.currentUser;
+  if (!user) return alert("Login required");
+
+  const picRef = ref(storage, `profilePics/${user.uid}`);
+  await uploadBytes(picRef, file);
+  const url = await getDownloadURL(picRef);
+
+  await setDoc(doc(db, "users", user.uid), {
+    photoURL: url
+  }, { merge: true });
+
+  document.getElementById("profilePreview").src = url;
+});
+  
 </script>
 
 </body>
